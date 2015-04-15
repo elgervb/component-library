@@ -1,5 +1,5 @@
 
-app.controller('MainController', ['$scope', function($scope){
+app.controller('ColorController', ['$scope', function($scope){
 
    $scope.colors_primary = [
       {code:'#333333', name:'Dark regular', sass:'dark-regular'},

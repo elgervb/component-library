@@ -146,26 +146,26 @@ a.btn-circle{
   padding: 0;
 }
 .badge{
-  background-color:#d60000;
-  border: 2px solid $font-color-light;
-  border-radius:15px;
+  background-color: $red-regular;
+  border: 2px solid $light-regular;
+  border-radius: 1em;
   box-shadow:0 2px 2px rgba(0,0,0,0.4);
   color: $font-color-light;
   display: block;
   font-size: .8em;
   font-weight: 600;
   height: auto;
-  line-height:1;
+  line-height: 1;
   min-width: 2em;
   padding: .2rem;
-  position:absolute;
+  position: absolute;
   right: -.8rem;
-  text-align:center;
-  text-shadow:0 -1px 0 rgba(0,0,0,0.2);
-  top:-7px;
-  visibility:visible;
-  width:auto;
-  z-index:2;
+  text-align: center;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
+  top: -7px;
+  visibility: visible;
+  width: auto;
+  z-index: 2;
 }
 
 .btn-next, .btn-prev {
@@ -184,8 +184,8 @@ a.btn-circle{
         color: darken($btn-gray, 25%);
       }
   }
-
 }
+
 .btn-next{
   &:after{
     content: "›";

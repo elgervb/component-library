@@ -2,12 +2,30 @@
 var app = angular.module('default', ['ngRoute'])
 
 .config(function($routeProvider, $locationProvider) {
- 
+
   $routeProvider
-  .otherwise({
-    controller: 'MainController',
-    templateUrl: '/assets/js/app/modules/main/main.html'
-  });
+    .when('/buttons', {
+      templateUrl: '/js/app/modules/sections/buttons.html'
+    })
+    .when('/colors', {
+      controller: 'ColorController',
+      templateUrl: '/js/app/modules/sections/colors.html'
+    })
+    .when('/forms', {
+      templateUrl: '/js/app/modules/sections/forms.html'
+    })
+    .when('/lists', {
+      templateUrl: '/js/app/modules/sections/lists.html'
+    })
+    .when('/tables', {
+      templateUrl: '/js/app/modules/sections/tables.html'
+    })
+    .when('/typography', {
+      templateUrl: '/js/app/modules/sections/typography.html'
+    })
+    .otherwise({
+      templateUrl: '/js/app/modules/main.html'
+    });
 
   $locationProvider.html5Mode('true');
 

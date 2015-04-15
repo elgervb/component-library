@@ -27,3 +27,7 @@ $btn-blue: $blue-regular;
 $btn-yellow: $yellow-regular;
 
 $btn-hover-darken: 10%;
+
+$table-row-hover: lighten($grey-light, 15%);
+$table-pagination-background: $grey-light;
+$table-pagination-color: $font-color-light;

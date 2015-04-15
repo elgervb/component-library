@@ -1,36 +1,33 @@
 var gulp = require('gulp'),
-    sass = require('gulp-sass'),
-    autoprefixer = require('gulp-autoprefixer'),
-    minifycss = require('gulp-minify-css'),
-    sourcemaps = require('gulp-sourcemaps'),
-    jshint = require('gulp-jshint'),
-    stylish = require('jshint-stylish')
-    uglify = require('gulp-uglify'),
-    imagemin = require('gulp-imagemin'),
-    rename = require('gulp-rename'),
-    concat = require('gulp-concat'),
-    notify = require('gulp-notify'),
-    cache = require('gulp-cache'),
-    livereload = require('gulp-livereload'),
-    express = require('express'),
-    del = require('del'),
-    stripDebug = require('gulp-strip-debug'),
-    browserSync = require('browser-sync'),
     argv = require('yargs').argv,
+    cache = require('gulp-cache'),
+    concat = require('gulp-concat'),
+    del = require('del'),
     gulpif = require('gulp-if'),
-    todo = require('gulp-todo'),
-    jsdoc = require("gulp-jsdoc"),
+    notify = require('gulp-notify'),
     plumber = require('gulp-plumber'),
-    ngannotate = require('gulp-ng-annotate'),
+    q = require('q'),
+    rename = require('gulp-rename'),
     replace = require('gulp-replace');
 
-var options = {liveReload: false};
+var options = {
+   liveReload: false,
+   gulpdir: '../',
+   serverport: 4000,
+   /**
+     * Returns the config for plumber
+     */
+    plumberConfig: function(){
+      return {'errorHandler': onError};
+    }
+}; 
 
 /**
  * browser-sync task for starting a server. This will open a browser for you. Point multiple browsers / devices to the same url and watch the magic happen.
  * Depends on: watch
  */
 gulp.task('browser-sync', ['watch'], function() {
+  var browserSync = require('browser-sync');
 
   // Watch any files in dist/*, reload on change
   gulp.watch(['dist/**']).on('change', function(){browserSync.reload({});notify({ message: 'Reload browser' });});
@@ -66,32 +63,50 @@ gulp.task('build', ['clean'], function() {
 /**
  * Cleans the `dist` folder and other generated files
  */
-gulp.task('clean', function(cb) {
-    del(['dist', 'docs','todo.md', 'todo.json'], cb);
+gulp.task('clean', ['clear-cache'],  function(cb) {
+    del(['dist', 'todo.md', 'todo.json'], cb);
+});
+
+/**
+ * Clears the cache used by gulp-cache
+ */
+gulp.task('clear-cache', function() {
+  // Or, just call this for everything
+  cache.clearAll();
 });
 
 
 /**
  * Copies all to dist/
  */
-gulp.task('copy', function() {
+gulp.task('copy', ['copy-fonts', 'copy-template', 'copy-index'], function() {});
 
-  // copy all jpg's as they are not handled by the images task
-  gulp.src( 'src/img/**/*.jpg')
-    .pipe(gulp.dest('dist/assets/img'));
 
-  // copy all fonts
-  gulp.src( 'src/fonts/**')
-    .pipe(gulp.dest('dist/assets/fonts'));
+gulp.task('copy-fonts', function() {
+  var deferred = q.defer();
+   // copy all fonts
+   setTimeout(function() {
+    gulp.src( 'src/fonts/**')
+      .pipe(gulp.dest('dist/fonts'));
+       deferred.resolve();
+  }, 1);
 
+  return deferred.promise;
+});
+
+
+gulp.task('copy-template', function() {
   // copy all html && json
-  gulp.src( ['src/js/app/**/*.html', 'src/js/app/**/*.json'])
-    .pipe(gulp.dest('dist/assets/js/app'));
+  return gulp.src( ['src/js/app/**/*.html', 'src/js/app/**/*.json'])
+    .pipe(cache(gulp.dest('dist/js/app')));
+});
 
-  // copy the index.html
+
+gulp.task('copy-index', function() {
+   // copy the index.html
    return gulp.src('src/index.html')
     .pipe(gulpif(options.liveReload, replace(/(\<\/body\>)/g, "<script>document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1\"></' + 'script>')</script>$1")))
-    .pipe(gulp.dest('dist/'));
+    .pipe(cache(gulp.dest('dist/')));
 });
 
 
@@ -103,39 +118,27 @@ gulp.task('default', ['build']);
 
 
 /**
- * Generate docs from all application javascript
+ * Task to start a server on port 4000 and used the live reload functionality.
+ * Depends on: server, live-reload
  */
-gulp.task('docs', function() {
-  return gulp.src("./src/js/app/**/*.js")
-    .pipe(jsdoc('./docs'))
-});
-
+gulp.task('start', ['server', 'live-reload'], function(){});
 
 /**
- * Task to start a Express server on port 4000.
- */
-gulp.task('express', function(){
-  var app = express(), port = 4000;
-  app.use(express.static(__dirname + "/dist"));
-  app.listen(port); 
-  console.log('started webserver on port ' + port);
-});
-
-
-/**
- * Task to start a Express server on port 4000 and used the live reload functionality.
- * Depends on: express, live-reload
- */
-gulp.task('express-lr', ['express', 'live-reload'], function(){});
-
-/**
- * Task to optimize and deploy all images found in folder `src/img/**`. Result is copied to `dist/assets/img`
+ * Task to optimize and deploy all images found in folder `src/img/**`. Result is copied to `dist/img`
  */
 gulp.task('images', function() {
-  return gulp.src('src/img/**/*')
-    .pipe(plumber())
-    .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
-    .pipe(gulp.dest('dist/assets/img'));
+  var imagemin = require('gulp-imagemin');
+  var deferred = q.defer();
+
+  setTimeout(function() {
+    gulp.src('src/img/**/*')
+      .pipe(plumber(options.plumberConfig()))
+      .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
+      .pipe(gulp.dest('dist/img'));
+    deferred.resolve();
+  }, 1);
+
+  return deferred.promise;
 });
 
 
@@ -144,6 +147,7 @@ gulp.task('images', function() {
  * Depends on: watch
  */
 gulp.task('live-reload', ['watch'], function() {
+  var livereload = require('gulp-livereload');
 
   options.liveReload = true;
   // first, delete the index.html from the dist folder as we will copy it later
@@ -184,36 +188,52 @@ gulp.task('remove',['clean'], function(cb){
  *
  * Depends on: docs
  */
-gulp.task('scripts-app', ['docs'], function() {
+gulp.task('scripts-app', function() {
+  var jshint = require('gulp-jshint'),
+      ngannotate = require('gulp-ng-annotate'),
+      stripDebug = require('gulp-strip-debug'),
+      stylish = require('jshint-stylish'),
+      sourcemaps = require('gulp-sourcemaps'),
+      uglify = require('gulp-uglify');
+
   return gulp.src('src/js/app/**/*.js')
-    .pipe(plumber())
-    .pipe(sourcemaps.init())
+    .pipe(plumber(options.plumberConfig()))
+    .pipe(ngannotate({gulpWarnings: false}))
     .pipe(jshint())
-    .on('error', notify.onError(function (error) {
-      return error.message;
-     }))
     .pipe(jshint.reporter(stylish))
     .pipe(concat('app.js'))
-    .pipe(gulp.dest('dist/assets/js'))
+    .pipe(gulp.dest('dist/js'))
+    // make minified 
     .pipe(rename({suffix: '.min'}))
     .pipe(gulpif(!argv.dev, stripDebug()))
-    .pipe(ngannotate())
+    .pipe(sourcemaps.init())
     .pipe(gulpif(!argv.dev, uglify()))
-    .on('error', handleError)
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('dist/assets/js'));
+    .pipe(gulp.dest('dist/js'));
 });
 
 
 /**
- * Task to handle all vendor specific javasript. All vendor javascript will be copied to the dist directory. Also a concatinated version will be made, available in \dist\assets\js\vendor\vendor.js
+ * Task to handle all vendor specific javasript. All vendor javascript will be copied to the dist directory. Also a concatinated version will be made, available in \dist\js\vendor\vendor.js
  */
 gulp.task('scripts-vendor', function() {
     // script must be included in the right order. First include angular, then angular-route
-  return gulp.src(['src/js/vendor/angularjs/1.3.0/angular.min.js','src/js/vendor/angularjs/1.3.0/angular-route.min.js','src/js/vendor/**/*.js'])
-    .pipe(gulp.dest('dist/assets/js/vendor'))
+  return gulp.src(['src/js/vendor/*/**/angular.min.js','src/js/vendor/*/**/angular-route.min.js'])
+    .pipe(gulp.dest('dist/js/vendor'))
     .pipe(concat('vendor.js'))
-    .pipe(gulp.dest('dist/assets/js/vendor'));
+    .pipe(gulp.dest('dist/js/vendor'));
+});
+
+
+/**
+ * Task to start a server on port 4000.
+ */
+gulp.task('server', function(){
+  var express = require('express');
+  var app = express(), port = options.serverport;
+  app.use(express.static(__dirname + "/dist"));
+  app.listen(port); 
+  console.log('started webserver on port ' + port);
 });
 
 
@@ -222,16 +242,18 @@ gulp.task('scripts-vendor', function() {
  * This will also auto prefix vendor specific rules.
  */
 gulp.task('styles', function() {
+  var autoprefixer = require('gulp-autoprefixer'),
+      minifycss = require('gulp-minify-css'),
+      sass = require('gulp-sass');
+
   return gulp.src('src/styles/main.scss')
-    .pipe(plumber())
+    .pipe(plumber(options.plumberConfig()))
     .pipe(sass({ style: 'expanded' }))
-    .on('error', handleError)
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-    .on('error', handleError)
-    .pipe(gulp.dest('dist/assets/css'))
+    .pipe(gulp.dest('dist/css'))
     .pipe(rename({suffix: '.min'}))
     .pipe(minifycss())
-    .pipe(gulp.dest('dist/assets/css'));
+    .pipe(gulp.dest('dist/css'));
 });
 
 
@@ -239,12 +261,13 @@ gulp.task('styles', function() {
  * Output TODO's & FIXME's in markdown and json file as well
  */
 gulp.task('todo', function() {
-    gulp.src('src/js/app/**/*.js')
-      .pipe(plumber())
-      .pipe(todo())
-      .pipe(gulp.dest('./')) //output todo.md as markdown
-      .pipe(todo.reporter('json', {fileName: 'todo.json'}))
-      .pipe(gulp.dest('./')) //output todo.json as json
+  var todo = require('gulp-todo');
+  gulp.src(['src/js/app/**/*.js','src/styles/app/**/*.scss'])
+    .pipe(plumber(options.plumberConfig()))
+    .pipe(todo())
+    .pipe(gulp.dest('./')) //output todo.md as markdown
+    .pipe(todo.reporter('json', {fileName: 'todo.json'}))
+    .pipe(gulp.dest('./')) //output todo.json as json
 });
 
 
@@ -253,27 +276,32 @@ gulp.task('todo', function() {
  */
 gulp.task('watch', function() {
 
+  // watch index.html
+  gulp.watch('src/index.html', ['copy-index']);
+
   // watch html files
-  gulp.watch('src/**/*.html', ['copy']);
+  gulp.watch('src/**/*.html', ['copy-template']);
+
+  // watch fonts 
+  gulp.watch('src/fonts/**', ['copy-fonts']);
 
   // Watch .scss files
   gulp.watch('src/styles/**/*.scss', ['styles']);
 
   // Watch app .js files
-  gulp.watch('src/js/app/**/*', ['scripts-app']);
+  gulp.watch('src/js/app/**/*.js', ['scripts-app']);
 
   // Watch vendor .js files
-  gulp.watch('src/js/vendor/**/*', ['scripts-vendor']);
+  gulp.watch('src/js/vendor/**/*.js', ['scripts-vendor']);
 
   // Watch image files
   gulp.watch('src/img/**/*', ['images']);
 });
 
-
-function handleError (error) {
-
-    //If you want details of the error in the console
-    console.log(error.toString());
-
-    this.emit('end');
+function onError(error){
+  // TODO log error with gutil
+  notify.onError(function (error) {
+    return error.message;
+  });
+  this.emit('end');
 }

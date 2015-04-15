@@ -10,7 +10,7 @@
 }
 
 .sub-title{
-  color: $grey-regular;
+  color: $grey-dark;
   font-size: 1.6em;
   font-weight: 400;
   margin: 30px 0;
@@ -19,7 +19,7 @@
   // counter
   &:before {
     box-sizing: border-box;
-    color: $grey-regular;
+    color: $grey-dark;
     content: counter(section, decimal)".";
     counter-increment: section;
     font-size: 1em;
