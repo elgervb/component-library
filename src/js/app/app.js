@@ -23,6 +23,9 @@ var app = angular.module('default', ['ngRoute'])
     .when('/typography', {
       templateUrl: '/js/app/modules/sections/typography.html'
     })
+    .when('/columns', {
+      templateUrl: '/js/app/modules/sections/columns.html'
+    })
     .otherwise({
       templateUrl: '/js/app/modules/main.html'
     });

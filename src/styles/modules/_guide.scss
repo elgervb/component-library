@@ -30,3 +30,11 @@
 .content{
   padding: 0 40px;
 }
+
+.visual-row{
+  
+  [class*='col-']{
+    border: 1px solid $grey-semi-dark;
+    height: 3em;
+  }
+}
