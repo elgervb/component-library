@@ -4,23 +4,19 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     del = require('del'),
     gulpif = require('gulp-if'),
+    gutil = require('gulp-util')
     notify = require('gulp-notify'),
     plumber = require('gulp-plumber'),
     q = require('q'),
     rename = require('gulp-rename'),
     replace = require('gulp-replace');
 
-var options = {
-   liveReload: false,
-   gulpdir: '../',
-   serverport: 4000,
-   /**
-     * Returns the config for plumber
-     */
-    plumberConfig: function(){
+var config = require('./package.json');
+var settings = config.settings;
+    settings.liveReload=false;
+    settings.plumberConfig=function(){
       return {'errorHandler': onError};
-    }
-}; 
+    };
 
 /**
  * browser-sync task for starting a server. This will open a browser for you. Point multiple browsers / devices to the same url and watch the magic happen.
@@ -30,11 +26,11 @@ gulp.task('browser-sync', ['watch'], function() {
   var browserSync = require('browser-sync');
 
   // Watch any files in dist/*, reload on change
-  gulp.watch(['dist/**']).on('change', function(){browserSync.reload({});notify({ message: 'Reload browser' });});
+  gulp.watch([settings.dist + '**']).on('change', function(){browserSync.reload({});notify({ message: 'Reload browser' });});
 
   return browserSync({
       server: {
-          baseDir: "./dist"
+          baseDir: settings.dist
       },
       ghostMode: {
         clicks: true,
@@ -53,10 +49,10 @@ gulp.task('browser-sync', ['watch'], function() {
 
 /**
  * Build and copy all styles, scripts, images and fonts.
- * Depends on: clean
+ * Depends on: info, clean
  */
-gulp.task('build', ['clean'], function() {
-    gulp.start('styles', 'scripts', 'images', 'copy', 'todo');
+gulp.task('build', ['info', 'clean'], function() {
+  gulp.start('styles', 'scripts', 'images', 'copy', 'todo');
 });
 
 
@@ -64,7 +60,7 @@ gulp.task('build', ['clean'], function() {
  * Cleans the `dist` folder and other generated files
  */
 gulp.task('clean', ['clear-cache'],  function(cb) {
-    del(['dist', 'todo.md', 'todo.json'], cb);
+  del([settings.dist, 'todo.md', 'todo.json'], cb);
 });
 
 /**
@@ -82,31 +78,38 @@ gulp.task('clear-cache', function() {
 gulp.task('copy', ['copy-fonts', 'copy-template', 'copy-index'], function() {});
 
 
+/**
+ * Task for copying fonts only
+ */
 gulp.task('copy-fonts', function() {
   var deferred = q.defer();
    // copy all fonts
    setTimeout(function() {
-    gulp.src( 'src/fonts/**')
-      .pipe(gulp.dest('dist/fonts'));
+    gulp.src( settings.src + 'fonts/**')
+      .pipe(gulp.dest(settings.dist + 'fonts'));
        deferred.resolve();
   }, 1);
 
   return deferred.promise;
 });
 
-
+/**
+ * task for copying templates only
+ */
 gulp.task('copy-template', function() {
   // copy all html && json
-  return gulp.src( ['src/js/app/**/*.html', 'src/js/app/**/*.json'])
+  return gulp.src( [settings.src + 'js/app/**/*.html', settings.src + 'js/app/**/*.json'])
     .pipe(cache(gulp.dest('dist/js/app')));
 });
 
-
+/**
+ * Task for copying index page only. Optionally add live reload script to it
+ */
 gulp.task('copy-index', function() {
    // copy the index.html
-   return gulp.src('src/index.html')
-    .pipe(gulpif(options.liveReload, replace(/(\<\/body\>)/g, "<script>document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1\"></' + 'script>')</script>$1")))
-    .pipe(cache(gulp.dest('dist/')));
+   return gulp.src(settings.src + 'index.html')
+    .pipe(gulpif(settings.liveReload, replace(/(\<\/body\>)/g, "<script>document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1\"></' + 'script>')</script>$1")))
+    .pipe(cache(gulp.dest(settings.dist)));
 });
 
 
@@ -116,12 +119,20 @@ gulp.task('copy-index', function() {
  */
 gulp.task('default', ['build']);
 
-
 /**
- * Task to start a server on port 4000 and used the live reload functionality.
- * Depends on: server, live-reload
+ * Create Javascript documentation
  */
-gulp.task('start', ['server', 'live-reload'], function(){});
+gulp.task('docs-js', ['todo'], function(){
+  var gulpDoxx = require('gulp-doxx');
+
+  gulp.src([settings.src + '/js/**/*.js', 'README.md', settings.reports + '/TODO.md'])
+    .pipe(gulpDoxx({
+      title: config.name,
+      urlPrefix: "file:///"+__dirname+settings.reports
+    }))
+    .pipe(gulp.dest(settings.reports));
+
+});
 
 /**
  * Task to optimize and deploy all images found in folder `src/img/**`. Result is copied to `dist/img`
@@ -131,14 +142,27 @@ gulp.task('images', function() {
   var deferred = q.defer();
 
   setTimeout(function() {
-    gulp.src('src/img/**/*')
-      .pipe(plumber(options.plumberConfig()))
+    gulp.src(settings.src + 'img/**/*')
+      .pipe(plumber(settings.plumberConfig()))
       .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
-      .pipe(gulp.dest('dist/img'));
+      .pipe(gulp.dest(settings.dist + 'img'));
     deferred.resolve();
   }, 1);
 
   return deferred.promise;
+});
+
+/**
+ * log some info about this app
+ */
+gulp.task('info',function(){
+  // log project details
+  gutil.log( gutil.colors.cyan("Running gulp on project "+config.name+" v"+ config.version) );
+  gutil.log( gutil.colors.cyan("Author: " + config.author.name) );
+  gutil.log( gutil.colors.cyan("Email : " + config.author.email) );
+  gutil.log( gutil.colors.cyan("Site  : " + config.author.url) );
+  // log info
+  gutil.log("If you have an enhancement or encounter a bug, please report them on", gutil.colors.magenta(config.bugs.url));
 });
 
 
@@ -149,20 +173,20 @@ gulp.task('images', function() {
 gulp.task('live-reload', ['watch'], function() {
   var livereload = require('gulp-livereload');
 
-  options.liveReload = true;
+  settings.liveReload = true;
   // first, delete the index.html from the dist folder as we will copy it later
-  del(['dist/index.html']);
+  del([settings.dist + 'index.html']);
 
   // add livereload script to the index.html
-  gulp.src(['src/index.html'])
+  gulp.src([settings.src + 'index.html'])
    .pipe(replace(/(\<\/body\>)/g, "<script>document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1\"></' + 'script>')</script>$1"))
-   .pipe(gulp.dest('dist'));
+   .pipe(gulp.dest(settings.dist));
    
   // Create LiveReload server
   livereload.listen();
 
   // Watch any files in dist/*, reload on change
-  gulp.watch(['dist/**']).on('change', livereload.changed);
+  gulp.watch([settings.dist + '**']).on('change', livereload.changed);
 });
 
 
@@ -184,11 +208,9 @@ gulp.task('remove',['clean'], function(cb){
 
 /**
  * Minifies all javascript found in the `src/js/**` folder. All files will be concatenated into `app.js`.  Minified and non-minified versions are copied to the dist folder.
- * This will also generete sourcemaps for the minified version.
- *
- * Depends on: docs
+ * This will also generete sourcemaps for the minified version. Depends on: docs-js
  */
-gulp.task('scripts-app', function() {
+gulp.task('scripts-app', ['docs-js'], function() {
   var jshint = require('gulp-jshint'),
       ngannotate = require('gulp-ng-annotate'),
       stripDebug = require('gulp-strip-debug'),
@@ -196,64 +218,91 @@ gulp.task('scripts-app', function() {
       sourcemaps = require('gulp-sourcemaps'),
       uglify = require('gulp-uglify');
 
-  return gulp.src('src/js/app/**/*.js')
-    .pipe(plumber(options.plumberConfig()))
+  return gulp.src(settings.src + 'js/app/**/*.js')
+    .pipe(plumber(settings.plumberConfig()))
     .pipe(ngannotate({gulpWarnings: false}))
     .pipe(jshint())
     .pipe(jshint.reporter(stylish))
     .pipe(concat('app.js'))
-    .pipe(gulp.dest('dist/js'))
+    .pipe(gulp.dest(settings.dist + 'js'))
     // make minified 
     .pipe(rename({suffix: '.min'}))
     .pipe(gulpif(!argv.dev, stripDebug()))
     .pipe(sourcemaps.init())
     .pipe(gulpif(!argv.dev, uglify()))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('dist/js'));
+    .pipe(gulp.dest(settings.dist + 'js'));
 });
 
 
 /**
  * Task to handle all vendor specific javasript. All vendor javascript will be copied to the dist directory. Also a concatinated version will be made, available in \dist\js\vendor\vendor.js
  */
-gulp.task('scripts-vendor', function() {
-    // script must be included in the right order. First include angular, then angular-route
-  return gulp.src(['src/js/vendor/*/**/angular.min.js','src/js/vendor/*/**/angular-route.min.js'])
-    .pipe(gulp.dest('dist/js/vendor'))
+gulp.task('scripts-vendor', ['scripts-vendor-maps'], function() {
+  // script must be included in the right order. First include angular, then angular-route
+  return gulp.src([settings.src + 'js/vendor/*/**/angular.min.js',settings.src + 'js/vendor/*/**/angular-route.min.js', settings.src + 'js/vendor/**/*.js'])
+    .pipe(gulp.dest(settings.dist + 'js/vendor'))
     .pipe(concat('vendor.js'))
-    .pipe(gulp.dest('dist/js/vendor'));
+    .pipe(gulp.dest(settings.dist + 'js/vendor'));
 });
 
 
 /**
- * Task to start a server on port 4000.
+ * Copy all vendor .js.map files to the vendor location
+ */
+gulp.task('scripts-vendor-maps', function(){
+  var flatten = require('gulp-flatten');
+
+  return gulp.src(settings.src + 'js/vendor/**/*.js.map')
+  .pipe(flatten())
+  .pipe(gulp.dest(settings.dist + 'js/vendor'));
+});
+
+
+/**
+ * TTask to start a server, use --port={{port}} to set the port, otherwist the port from the settings will be used (4000)
  */
 gulp.task('server', function(){
-  var express = require('express');
-  var app = express(), port = options.serverport;
-  app.use(express.static(__dirname + "/dist"));
+  var express = require('express'),
+  app = express(), 
+  port = argv.port||settings.serverport;
+  app.use(express.static(__dirname + "/" + settings.dist));
+
   app.listen(port); 
-  console.log('started webserver on port ' + port);
+  gutil.log('Server started. Port', port,"baseDir",__dirname+"/"+settings.dist);
 });
+
+
+/**
+ * Task to start a server on port 4000 and used the live reload functionality.
+ * Depends on: server, live-reload
+ */
+gulp.task('start', ['live-reload', 'server'], function(){});
 
 
 /**
  * Compile Sass into Css and minify it. Minified and non-minified versions are copied to the dist folder.
  * This will also auto prefix vendor specific rules.
+ *
+ * @see https://github.com/sass/node-sass for configuration
  */
 gulp.task('styles', function() {
   var autoprefixer = require('gulp-autoprefixer'),
       minifycss = require('gulp-minify-css'),
       sass = require('gulp-sass');
 
-  return gulp.src('src/styles/main.scss')
-    .pipe(plumber(options.plumberConfig()))
-    .pipe(sass({ style: 'expanded' }))
+  return gulp.src([settings.src + 'styles/**/*.scss'])
+    .pipe(plumber(settings.plumberConfig()))
+    .pipe(sass({ 
+      style: 'nested',
+      precision: 5,
+      sourceComments: argv.dev ? true : false
+    }))
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-    .pipe(gulp.dest('dist/css'))
+    .pipe(gulp.dest(settings.dist + 'css'))
     .pipe(rename({suffix: '.min'}))
     .pipe(minifycss())
-    .pipe(gulp.dest('dist/css'));
+    .pipe(gulp.dest(settings.dist + 'css'));
 });
 
 
@@ -262,40 +311,40 @@ gulp.task('styles', function() {
  */
 gulp.task('todo', function() {
   var todo = require('gulp-todo');
-  gulp.src(['src/js/app/**/*.js','src/styles/app/**/*.scss'])
-    .pipe(plumber(options.plumberConfig()))
-    .pipe(todo())
-    .pipe(gulp.dest('./')) //output todo.md as markdown
-    .pipe(todo.reporter('json', {fileName: 'todo.json'}))
-    .pipe(gulp.dest('./')) //output todo.json as json
+  gulp.src([settings.src + 'js/app/**/*.js',settings.src + 'styles/app/**/*.scss'])
+    .pipe( plumber( settings.plumberConfig() ) )
+    .pipe( todo() )
+    .pipe( gulp.dest( settings.reports ) ) // output todo.md as markdown
+    .pipe( todo.reporter('json', {fileName: 'todo.json'} ) )
+    .pipe( gulp.dest( settings.reports ) ) // output todo.json as json
 });
 
 
 /**
- * Watches changes to template, Sass, javascript and image files. On change this will run the appropriate task, either: copy styles, scripts or images. 
+ * Watches changes to template, Sass, javascript and image files. On change this will run the appropriate task, either: copy styles, templates, scripts or images. 
  */
 gulp.task('watch', function() {
 
   // watch index.html
-  gulp.watch('src/index.html', ['copy-index']);
+  gulp.watch(settings.src + 'index.html', ['copy-index']);
 
   // watch html files
-  gulp.watch('src/**/*.html', ['copy-template']);
+  gulp.watch(settings.src + '**/*.html', ['copy-template']);
 
   // watch fonts 
-  gulp.watch('src/fonts/**', ['copy-fonts']);
+  gulp.watch(settings.src + 'fonts/**', ['copy-fonts']);
 
   // Watch .scss files
-  gulp.watch('src/styles/**/*.scss', ['styles']);
+  gulp.watch(settings.src + 'styles/**/*.scss', ['styles']);
 
   // Watch app .js files
-  gulp.watch('src/js/app/**/*.js', ['scripts-app']);
+  gulp.watch(settings.src + 'js/app/**/*.js', ['scripts-app']);
 
   // Watch vendor .js files
-  gulp.watch('src/js/vendor/**/*.js', ['scripts-vendor']);
+  gulp.watch(settings.src + 'js/vendor/**/*.js', ['scripts-vendor']);
 
   // Watch image files
-  gulp.watch('src/img/**/*', ['images']);
+  gulp.watch(settings.src + 'img/**/*', ['images']);
 });
 
 function onError(error){
