@@ -1,6 +1,7 @@
 $popoverHoverColor: #5a70b0;
 $popoverBorderColor: #666;
 $popoverBackgroundColor: #fff;
+$popoverArrowSize: 14px;
 
 .popover {
   display: inline-block;
@@ -28,7 +29,7 @@ $popoverBackgroundColor: #fff;
     z-index: 999;
   
     &:before, &:after, li:first-child:after { // Arrow
-      border: 7px outset transparent;
+      border: ($popoverArrowSize / 2) outset transparent;
       content: '';
       display: block;
       height: 0;
@@ -38,13 +39,13 @@ $popoverBackgroundColor: #fff;
     }
 
     &:before { // Arrow border
-      bottom: -14px;
-      border-top: 7px solid $popoverBorderColor;
+      bottom: (-$popoverArrowSize);
+      border-top: ($popoverArrowSize / 2) solid $popoverBorderColor;
     }
 
     &:after { // Arrow background
-      bottom: -12px;
-      border-top: 7px solid $popoverBackgroundColor;
+      bottom: (-$popoverArrowSize) + 2px;
+      border-top: ($popoverArrowSize / 2) solid $popoverBackgroundColor;
     }
   }
 
@@ -58,7 +59,7 @@ $popoverBackgroundColor: #fff;
     top:100%;
 
     &:before, &:after, li:first-child:after { // Arrow
-      border-top: 7px solid transparent;
+      border-top: ($popoverArrowSize / 2) solid transparent;
       bottom: 0;
       left: 50%;
       right: 0;
@@ -66,25 +67,25 @@ $popoverBackgroundColor: #fff;
       transform: translateX(-50%);
     }
     &:before { // Arrow border
-      border-bottom: 7px solid $popoverBorderColor;
+      border-bottom: ($popoverArrowSize / 2) solid $popoverBorderColor;
       bottom: 0;
-      top: -14px
+      top: (-$popoverArrowSize);
     }
     &:after { // Arrow background
-      border-bottom: 7px solid $popoverBackgroundColor;
+      border-bottom: ($popoverArrowSize / 2) solid $popoverBackgroundColor;
       bottom: 0;
-      top: -12px
+      top: (-$popoverArrowSize) + 2px;
     }
   }
   &.left ul{
     bottom: auto;
     left: auto;
-    margin-right: 14px;
+    margin-right: $popoverArrowSize;
     right: 100%;
     top: -100%;
 
     &:before, &:after, li:first-child:after { // Arrow
-      border-top: 7px solid transparent;
+      border-top: ($popoverArrowSize / 2) solid transparent;
       bottom: 0;
       left: 0;
       right: 0;
@@ -92,16 +93,16 @@ $popoverBackgroundColor: #fff;
       transform: translateY(-50%);
     }
     &:before { // Arrow border
-      border-left: 7px solid $popoverBorderColor;
+      border-left: ($popoverArrowSize / 2) solid $popoverBorderColor;
       bottom: 0;
       left: auto;
-      right: -14px;
+      right: (-$popoverArrowSize);
     }
     &:after { // Arrow background
-      border-left: 7px solid $popoverBackgroundColor;
+      border-left: ($popoverArrowSize / 2) solid $popoverBackgroundColor;
       ottom: 0;
       left: auto;
-      right: -12px;
+      right: (-$popoverArrowSize) + 2px;
     }
   }
   &.right ul{
@@ -113,7 +114,7 @@ $popoverBackgroundColor: #fff;
     transform: translateY(-50%);
 
     &:before, &:after, li:first-child:after { // Arrow
-      border-top: 7px solid transparent;
+      border-top: ($popoverArrowSize / 2) solid transparent;
       bottom: 0;
       left: 0;
       right: 0;
@@ -121,20 +122,20 @@ $popoverBackgroundColor: #fff;
       transform: translateY(-50%);
     }
     &:before { // Arrow border
-      border-right: 7px solid $popoverBorderColor;
+      border-right: ($popoverArrowSize / 2) solid $popoverBorderColor;
       bottom: 0;
-      left: -14px
+      left: (-$popoverArrowSize);
     }
     &:after { // Arrow background
-      border-right: 7px solid $popoverBackgroundColor;
+      border-right: ($popoverArrowSize / 2) solid $popoverBackgroundColor;
       bottom: 0;
-      left: -12px
+      left: (-$popoverArrowSize) + 2px;
     }
   }
 
   li:first-child:after { // Arrow inner shadow
     bottom: -13px;
-    border-top: 7px solid white;
+    border-top: ($popoverArrowSize / 2) solid white;
   }
 
   li {
