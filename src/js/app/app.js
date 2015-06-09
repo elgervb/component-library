@@ -26,6 +26,9 @@ var app = angular.module('default', ['ngRoute'])
     .when('/columns', {
       templateUrl: '/js/app/modules/sections/columns.html'
     })
+    .when('/popover', {
+      templateUrl: '/js/app/modules/sections/popover.html'
+    })
     .otherwise({
       templateUrl: '/js/app/modules/main.html'
     });
