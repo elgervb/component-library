@@ -1,0 +1,76 @@
+$popoverHoverColor: #5a70b0;
+$popoverBorderColor: #666;
+$popoverBackgroundColor: #fff;
+
+.popover {
+  display: inline-block;
+  height: 32px;
+  padding: 8px 12px 8px 8px;
+  position: relative;
+
+  &:hover ul {
+    padding: 4px 0 6px;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  ul {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    right: 0;
+    background: $popoverBackgroundColor;
+    border: 1px solid;
+    border-color: $popoverBorderColor;
+    border-radius: 5px;
+    transition: all .2s ease-out;
+    box-shadow: inset 0 0 0 1px rgba(white, .9), 0 1px 2px rgba(black, .1);
+  
+    &:before, &:after, li:first-child:after { // Arrow
+      content: '';
+      display: block;
+      position: absolute;
+      left: 15px;
+      width: 0;
+      height: 0;
+      border: 7px outset transparent;
+    }
+
+    &:before { // Arrow border
+      bottom: -14px;
+      border-top: 7px solid $popoverBorderColor;
+    }
+
+    &:after { // Arrow background
+      bottom: -12px;
+      border-top: 7px solid $popoverBackgroundColor;
+    }
+  }
+
+  li:first-child:after { // Arrow inner shadow
+    bottom: -13px;
+    border-top: 7px solid white;
+  }
+
+  li {
+    padding: 0 12px;
+
+    a {
+      display: block;
+      position: relative;
+      margin: 0 -13px;
+      padding: 0 20px 0 12px;
+      text-decoration: none;
+      border: 1px solid transparent;
+
+      &:hover {
+
+        &:after { 
+          display: block; 
+        }
+      }
+    }
+  }
+}
