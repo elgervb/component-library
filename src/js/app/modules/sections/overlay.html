@@ -1,9 +1,13 @@
 
 
   <button class="btn-red" ng-click="showoverlay=true">Show overlay</button>
+  <button class="btn-red" ng-click="showoverlay=true;slideIn=true;">Slide in overlay</button>
+  <button class="btn-red" ng-click="showoverlay=true;slideInLeft=true;">Slide in left overlay</button>
+  <button class="btn-red" ng-click="showoverlay=true;slideInRight=true;">Slide in left overlay</button>
+  <button class="btn-red" ng-click="showoverlay=true;fadeIn=true;">Fade in overlay</button>
 
-  <div class="overlay" ng-show="showoverlay">
+  <div class="overlay" ng-show="showoverlay" ng-class="{slideIn: slideIn, slideInLeft: slideInLeft, slideInRight: slideInRight, fadeIn: fadeIn}">
       
-      <a class="overlay-close" ng-click="showoverlay=false">&times;</a>
+      <a class="overlay-close" ng-click="showoverlay=false;slideIn=false;slideInLeft=false;slideInRight=false;fadeIn=false;" >&times;</a>
 
   </div>

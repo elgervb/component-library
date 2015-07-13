@@ -1,5 +1,7 @@
 .overlay {
-  animation: slideInUp .1s ease-out 0s;
+  animation-delay: 0s;
+  animation-duration: .2s;
+  animation-timing-function: ease-out;
   background: $overlay-color;
   display: block;
   height: 100%;
@@ -29,4 +31,19 @@
       transform: rotate(360deg);
     }
   }
+
+  /*
+   * Animations
+   */
+   &.slideIn{
+    animation-name: slideInUp;
+   }
+   &.slideInRight{
+    animation-name: slideInRight;
+   }
+   &.slideInLeft{
+    animation-name: slideInLeft;
+   }&.fadeIn{
+    animation-name: fadeIn;
+   }
 }
