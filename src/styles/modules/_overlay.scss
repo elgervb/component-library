@@ -1,0 +1,32 @@
+.overlay {
+  animation: slideInUp .1s ease-out 0s;
+  background: $overlay-color;
+  display: block;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999999;
+
+  .overlay-close{
+    border: 2px solid $light-regular;
+    border-radius: 50%;
+    color: $light-regular;
+    display: block;
+    font-size: 2em;
+    font-weight: 500;
+    height: 3rem;
+    line-height: 3rem;
+    margin: 0 auto;
+    position: absolute;
+    right: .5em;
+    text-align: center;
+    top: 5px;
+    width: 3rem;
+
+    &:hover{
+      transform: rotate(360deg);
+    }
+  }
+}

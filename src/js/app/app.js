@@ -29,6 +29,9 @@ var app = angular.module('default', ['ngRoute'])
     .when('/popover', {
       templateUrl: '/js/app/modules/sections/popover.html'
     })
+    .when('/overlay', {
+      templateUrl: '/js/app/modules/sections/overlay.html'
+    })
     .otherwise({
       templateUrl: '/js/app/modules/main.html'
     });
