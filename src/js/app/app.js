@@ -32,6 +32,9 @@ var app = angular.module('default', ['ngRoute'])
     .when('/overlay', {
       templateUrl: '/js/app/modules/sections/overlay.html'
     })
+    .when('/messagebox', {
+      templateUrl: '/js/app/modules/sections/messagebox.html'
+    })
     .otherwise({
       templateUrl: '/js/app/modules/main.html'
     });
