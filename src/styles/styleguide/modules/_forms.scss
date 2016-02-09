@@ -1,22 +1,30 @@
 .field{
-  padding: 4px 0;
+  display: flex;
+  padding: .25rem 0;
   position: relative;
-
-  @extend .clearfix;
+  
+  .field-inner {
+    align-items: center;
+    padding: .25rem 0;
+  }
 
   label{
     cursor: pointer;
     display: block;
-    float: left;
-    padding: 4px 0;
-    width: 220px;
+    padding: .25rem 0;
+    width: 14rem;
   }
-  input, textarea{
-    border: 1px solid #cecece;
+  button, input[type=button], input[type=reset], input[type=submit] {
+    min-width: 0;
+    width: 24em;
+  }
+  input, textarea {
+    border: 1px solid $grey-dark-light;
     border-radius: 0;
+    flex-grow: 2; // take up the rest of the width
     margin: 0;
-    padding: 4px;
-    width: 220px;
+    padding: .25rem;
+
     &[type=radio], &[type=checkbox]{
       width: auto;
     }
@@ -26,13 +34,13 @@
     }
     &[type=color] {
       appearance: none;
-      padding: 4px;
+      padding: .25rem;
       box-sizing: border-box;
       
       &::-webkit-color-swatch-wrapper {
         padding: 0;
       }
-      &input1::-webkit-color-swatch {
+      &::-webkit-color-swatch {
         border: none;
         display: block;
       }
@@ -41,39 +49,24 @@
       border: 1px solid #cecece;
       box-shadow: none;
     }
-    &:invalid {
-      border: 1px solid #ce1e1e;
-      box-shadow: 0 0 1px #ce1e1e;
-    }
-    &:required{
-      &:invalid{
-        border: 1px solid #cecece;
-        box-shadow: none;
-      }
-      &:after {
-        content: "!";
-      }
-    }
     &.full-width{
       width: 100%;
     }
   }
   .radio-group{
-    float: left;
-    width: 220px;
+    width: 14em;
 
     label{ 
       display: inline;
-      float: none;
-      width: auto;
     }
   }
   textarea{
-    height: 69px; // 3 lines
+    line-height: 1.6;
+    height: 9em; 
   }
   
   .error{
-    margin-left: 220px;
+    margin-left: 14em;
   }
 }
 
@@ -82,7 +75,7 @@
   margin: 0 1%;
   overflow: hidden;
   text-align: center;
-  white-space: nowrap; 
+  white-space: nowrap;
 
   & > span {
     position: relative;
@@ -101,12 +94,12 @@
 
   & > span:before {
       right: 100%;
-      margin-right: 15px;
+      margin-right: 1rem;
   }
 
   & > span:after {
       left: 100%;
-      margin-left: 15px;
+      margin-left: 1rem;
   }
 } 
 
@@ -114,5 +107,5 @@
   border-bottom: 1px solid #cecece;
   display: inline-block;
   min-height: 1em;
-  min-width: 200px;
+  min-width: 14rem;
 }
