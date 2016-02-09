@@ -2,227 +2,272 @@
     Forms
   </h1>
 
-  <h2 class="sub-title">
-    Horizontal
-  </h2>
+  <form method="post">
+    
+    <h2 class="sub-title">
+      Default fields
+    </h2>
+    
+    <div class="field">
+      <label for="text">text</label>
+      <input type="text" id="text" ng-model="psttext" />
+    </div>
 
-    <form method="post">
-      
-      <div class="field">
-        <label for="text">text</label>
-        <input type="text" id="text" ng-model="psttext" />
-      </div>
+    <div class="field">
+      <label for="number">number</label>
+      <input type="number" id="number" ng-model="pstnumber" />
+    </div>
 
-      <div class="field">
-        <label for="textdata">text w/ datalist</label>
-        <input type="text" id="textdata" list="browsers" ng-model="psttextdata" />
-        <span class="suffix">{{psttextdata}}</span>
-        <datalist id="browsers">
-          <option value="Chrome"></option>
-          <option value="Firefox"></option>
-          <option value="Internet Explorer"></option>
-          <option value="Opera"></option>
-          <option value="Safari"></option>
-        </datalist>
-      </div>
+    <div class="field">
+      <label for="email">email</label>
+      <input type="email" id="email" ng-model="pstemail" />
+    </div>
 
-      <div class="field">
-        <label for="number">number</label>
-        <input type="number" id="number" ng-model="pstnumber" />
-      </div>
+    <div class="field">
+      <label for="url">url</label>
+      <input type="url" id="url" ng-model="psturl" />
+    </div>
 
-      <div class="field">
-        <label for="numberconfig">number w/ config</label>
-        <input type="number" id="numberconfig" ng-model="pstnumberconfig" min=10 max=250 step=5 />
-      </div>
+    <div class="field">
+      <label for="tel">tel</label>
+      <input type="tel" id="tel" ng-model="psttel" />
+    </div>
 
-      <div class="field">
-        <label for="email">email</label>
-        <input type="email" id="email" ng-model="pstemail" />
-      </div>
+    <div class="field">
+      <label for="range">range</label>
+      <input type="range" id="range" ng-model="pstrange" />
+    </div>
 
-      <div class="field">
-        <label for="url">url</label>
-        <input type="url" id="url" ng-model="psturl" />
-      </div>
+    <div class="field">
+      <label for="rangeconfig">range w/config</label>
+      <input type="range" id="rangeconfig" ng-model="pstrangeconfig" min=10 max=150 step=5 />
+    </div>
 
-      <div class="field">
-        <label for="color">color</label>
-        <input type="color" id="color" ng-model="pstcolor" ng-init="pstcolor='#8CE196'" />
-      </div>
+    <div class="field">
+      <label for="password">password</label>
+      <input type="password" id="password" ng-model="pstpassword" />
+    </div>
 
-      <div class="field">
-        <label for="tel">tel</label>
-        <input type="tel" id="tel" ng-model="psttel" />
-      </div>
+    <div class="field">
+      <label for="reset">reset</label>
+      <input type="reset" id="reset" ng-model="pstreset" value="reset" class="btn" />
+    </div>
 
-      <div class="field">
-        <label for="search">search</label>
-        <input type="search" id="search" ng-model="pstsearch" />
-      </div>
+    <div class="field">
+      <label for="button">button</label>
+      <input type="button" id="button" ng-model="pstbutton" value="button" class="btn"/>
+    </div>
 
-      <div class="field">
-        <label for="range">range</label>
-        <input type="range" id="range" ng-model="pstrange" />
-      </div>
+    <div class="field">
+      <label for="submit">submit</label>
+      <input type="submit" id="submit" ng-model="pstsubmit" value="submit" class="btn"/>
+    </div>
 
-      <div class="field">
-        <label for="rangeconfig">range w/config</label>
-        <input type="range" id="rangeconfig" ng-model="pstrangeconfig" min=10 max=150 step=5 />
-      </div>
+    <div class="field">
+      <label for="image">image</label>
+      <input type="image" id="image" ng-model="pstimage" src="/blog/img/icons/expand.png" width="26" height="26" />
+    </div>
 
-      <div class="field">
-        <label for="password">password</label>
-        <input type="password" id="password" ng-model="pstpassword" />
-      </div>
+    <div class="field">
+      <label for="hidden">hidden</label>
+      <input type="hidden" id="hidden" ng-model="psthidden"/>
+    </div>
 
-      <div class="field">
-        <label for="reset">reset</label>
-        <input type="reset" id="reset" ng-model="pstreset" value="reset" class="btn" />
-      </div>
+    <div class="field">
+      <label for="file-img">file</label>
+      <input type="file" id="file-img" ng-model="pstfile" accept="image/*" />
+    </div>
 
-      <div class="field">
-        <label for="button">button</label>
-        <input type="button" id="button" ng-model="pstbutton" value="button" class="btn"/>
-      </div>
+    <div class="field">
+      <label for="filemultiple">file multiple</label>
+      <input type="file" id="filemultiple" ng-model="pstfilemultiple" accept="image/*" multiple />
+    </div>
+    
+    <h2 class="sub-title">
+      Extended fields
+    </h2>
+    
+    <div class="field">
+      <label for="textdata">text w/ datalist</label>
+      <input type="text" id="textdata" list="browsers" ng-model="psttextdata" />
+      <span class="suffix">{{psttextdata}}</span>
+      <datalist id="browsers">
+        <option value="Chrome"></option>
+        <option value="Firefox"></option>
+        <option value="Internet Explorer"></option>
+        <option value="Opera"></option>
+        <option value="Safari"></option>
+      </datalist>
+    </div>
+    
+     <div class="field">
+      <label for="numberconfig">number w/ config</label>
+      <input type="number" id="numberconfig" ng-model="pstnumberconfig" min=10 max=250 step=5 />
+    </div>
+    
+    <div class="field">
+      <label for="search">search</label>
+      <input type="search" id="search" ng-model="pstsearch" />
+    </div>
+    
+    <div class="field">
+      <label for="date">date</label>
+      <input type="date" id="date" ng-model="pstdate" />
+    </div>
 
-      <div class="field">
-        <label for="submit">submit</label>
-        <input type="submit" id="submit" ng-model="pstsubmit" value="submit" class="btn"/>
-      </div>
+    <div class="field">
+      <label for="month">month</label>
+      <input type="month" id="month" ng-model="pstmonth" />
+    </div>
 
-      <div class="field">
-        <label for="image">image</label>
-        <input type="image" id="image" ng-model="pstimage" src="/blog/img/icons/expand.png" width="26" height="26" />
-      </div>
+    <div class="field">
+      <label for="week">week</label>
+      <input type="week" id="week" ng-model="pstweek" />
+    </div>
 
-      <div class="field">
-        <label for="hidden">hidden</label>
-        <input type="hidden" id="hidden" ng-model="psthidden"/>
-      </div>
+    <div class="field">
+      <label for="datetime">datetime</label>
+      <input type="datetime" id="datetime" ng-model="pstdatetime" />
+    </div>
 
-      <div class="field">
-        <label for="file-img">file</label>
-        <input type="file" id="file-img" ng-model="pstfile" accept="image/*" />
-      </div>
+    <div class="field">
+      <label for="datetime-local">datetime-local</label>
+      <input type="datetime-local" id="datetime-local" ng-model="pstdatetime_local" />
+    </div>
 
-      <div class="field">
-        <label for="filemultiple">file multiple</label>
-        <input type="file" id="filemultiple" ng-model="pstfilemultiple" accept="image/*" multiple />
-      </div>
+    <div class="field">
+      <label for="time">time</label>
+      <input type="time" id="time" ng-model="psttime" />
+    </div>
 
-      <div class="field">
-        <label for="date">date</label>
-        <input type="date" id="date" ng-model="pstdate" />
-      </div>
+    
+    <h2 class="sub-title">
+        Radio buttons and check boxes
+    </h2>
+    
+    <div class="field">
+      <label for="checkbox-field">Checkbox field</label>
 
-      <div class="field">
-        <label for="month">month</label>
-        <input type="month" id="month" ng-model="pstmonth" />
-      </div>
-
-      <div class="field">
-        <label for="week">week</label>
-        <input type="week" id="week" ng-model="pstweek" />
-      </div>
-
-      <div class="field">
-        <label for="datetime">datetime</label>
-        <input type="datetime" id="datetime" ng-model="pstdatetime" />
-      </div>
-
-      <div class="field">
-        <label for="datetime-local">datetime-local</label>
-        <input type="datetime-local" id="datetime-local" ng-model="pstdatetime_local" />
-      </div>
-
-      <div class="field">
-        <label for="time">time</label>
-        <input type="time" id="time" ng-model="psttime" />
-      </div>
-
-      
-      <div class="field">
-        <label for="checkbox-field">Checkbox field</label>
-
-        <div class="radio-group">
-          <div class="field-inner">
-            <input type="checkbox" id="checkbox-field1" name="checkbox" value="1" />
-            <label for="checkbox-field1" class="squaredFour">One</label>
-          </div>
-          <div class="field-inner">
-           <input type="checkbox" id="checkbox-field2" name="checkbox" value="2" />
-            <label for="checkbox-field2" class="squaredFour">Two</label>
-          </div>
-          <div class="field-inner">
-            <input type="checkbox" id="checkbox-field3" name="checkbox" value="3" />
-            <label for="checkbox-field3" class="squaredFour">Three</label>
-          </div>
-
+      <div class="radio-group">
+        <div class="field-inner">
+          <input type="checkbox" id="checkbox-field1" name="checkbox" value="1" />
+          <label for="checkbox-field1" class="squaredFour">One</label>
         </div>
-      </div>
-
-      <div class="divider">
-        <span>Radio buttons</span>
-      </div>
-
-      <div class="field">
-        <label for="radio-field">Radio field</label>
-        
-        <div class="radio-group">
-
-          <div class="field-inner">
-            <input type="radio" id="radio-field1" name="radio" value="1"/>
-            <label for="radio-field1">One</label>
-          </div>
-          <div class="field-inner">
-            <input type="radio" id="radio-field2" name="radio" value="2"/>
-            <label for="radio-field2">Two</label>
-          </div>
-          <div class="field-inner">
-            <input type="radio" id="radio-field3" name="radio" value="3"/>
-            <label for="radio-field3">Three</label>
-          </div>
-
+        <div class="field-inner">
+          <input type="checkbox" id="checkbox-field2" name="checkbox" value="2" />
+          <label for="checkbox-field2" class="squaredFour">Two</label>
         </div>
+        <div class="field-inner">
+          <input type="checkbox" id="checkbox-field3" name="checkbox" value="3" />
+          <label for="checkbox-field3" class="squaredFour">Three</label>
+        </div>
+
       </div>
+    </div>
+
+    <div class="field">
+      <label for="radio-field">Radio field</label>
       
+      <div class="radio-group">
 
-      <div class="divider">
-        <span>Switches</span>
+        <div class="field-inner">
+          <input type="radio" id="radio-field1" name="radio" value="1"/>
+          <label for="radio-field1">One</label>
+        </div>
+        <div class="field-inner">
+          <input type="radio" id="radio-field2" name="radio" value="2"/>
+          <label for="radio-field2">Two</label>
+        </div>
+        <div class="field-inner">
+          <input type="radio" id="radio-field3" name="radio" value="3"/>
+          <label for="radio-field3">Three</label>
+        </div>
+
       </div>
+    </div>
+    
+    <h2 class="sub-title">
+        Custom radio buttons and check boxes
+    </h2>
+    
+    <div class="field checkbox">
+      <label for="checkbox-field-custom">Checkbox field</label>
 
-      <div class="field">
-          <label>Switch round</label>
-          <div class="switch">
-            <input id="toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox">
-            <label for="toggle-1"></label>
-          </div>
+      <div class="radio-group">
+        <div class="field-inner">
+          <input type="checkbox" id="checkbox-field1-custom" name="checkbox" value="1" />
+          <label for="checkbox-field1-custom" class="squaredFour">One</label>
+        </div>
+        <div class="field-inner">
+          <input type="checkbox" id="checkbox-field2-custom" name="checkbox" value="2" />
+          <label for="checkbox-field2-custom" class="squaredFour">Two</label>
+        </div>
+        <div class="field-inner">
+          <input type="checkbox" id="checkbox-field3-custom" name="checkbox" value="3" />
+          <label for="checkbox-field3-custom" class="squaredFour">Three</label>
+        </div>
+
       </div>
+    </div>
 
-      <div class="field">
-        <label>Switch round flat</label>
+    <div class="field radio">
+      <label for="radio-field-custom">Radio field</label>
+      
+      <div class="radio-group">
+
+        <div class="field-inner">
+          <input type="radio" id="radio-field1-custom" name="radio" value="1"/>
+          <label for="radio-field1-custom">One</label>
+        </div>
+        <div class="field-inner">
+          <input type="radio" id="radio-field2-custom" name="radio" value="2"/>
+          <label for="radio-field2-custom">Two</label>
+        </div>
+        <div class="field-inner">
+          <input type="radio" id="radio-field3-custom" name="radio" value="3"/>
+          <label for="radio-field3-custom">Three</label>
+        </div>
+
+      </div>
+    </div>
+    
+    
+    <h2 class="sub-title">
+        Switches
+    </h2>
+    
+
+    <div class="field">
+        <label>Switch round</label>
         <div class="switch">
-          <input id="toggle-2" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" checked>
-          <label for="toggle-2"></label>
+          <input id="toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox">
+          <label for="toggle-1"></label>
         </div>
-      </div>
+    </div>
 
-      <div class="field">
-        <label>Switch flip style</label>
-        <div class="switch">
-          <input id="toggle-3" class="cmn-toggle cmn-toggle-yes-no" type="checkbox">
-          <label for="toggle-3" data-on="Yes" data-off="No"></label>
-        </div>
+    <div class="field">
+      <label>Switch round flat</label>
+      <div class="switch">
+        <input id="toggle-2" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" checked>
+        <label for="toggle-2"></label>
       </div>
+    </div>
 
-      <div class="divider">
-        <span>Textarea</span>
+    <div class="field">
+      <label>Switch flip style</label>
+      <div class="switch">
+        <input id="toggle-3" class="cmn-toggle cmn-toggle-yes-no" type="checkbox">
+        <label for="toggle-3" data-on="Yes" data-off="No"></label>
       </div>
+    </div>
 
-      <div class="field">
-        <label for="textarea">Textarea</label>
-        <textarea id="textarea"></textarea>
-      </div>
+    <div class="divider">
+      <span>Form field divider</span>
+    </div>
 
-    </form>
+    <div class="field">
+      <label for="textarea">Textarea</label>
+      <textarea id="textarea"></textarea>
+    </div>
+
+  </form>
