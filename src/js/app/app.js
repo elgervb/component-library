@@ -13,7 +13,7 @@
       templateUrl: 'modules/main.html'
     })
     .state('main.section', {
-      url: '/:id',
+      url: ':id',
       templateUrl: (args) => {
         return `modules/sections/${args.id}.html`;
       }
