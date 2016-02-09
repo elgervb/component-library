@@ -24,6 +24,19 @@
     &[type=radio], &[type=checkbox],&[type=range]{
       border:none;
     }
+    &[type=color] {
+      appearance: none;
+      padding: 4px;
+      box-sizing: border-box;
+      
+      &::-webkit-color-swatch-wrapper {
+        padding: 0;
+      }
+      &input1::-webkit-color-swatch {
+        border: none;
+        display: block;
+      }
+    }
     &:empty{
       border: 1px solid #cecece;
       box-shadow: none;
