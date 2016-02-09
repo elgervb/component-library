@@ -15,7 +15,7 @@
     .state('main.section', {
       url: '/:id',
       templateUrl: (args) => {
-        return `modules/sections/${args.id}.html`
+        return `modules/sections/${args.id}.html`;
       }
     });
 
@@ -23,6 +23,5 @@
     
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
-
   });
 })();
