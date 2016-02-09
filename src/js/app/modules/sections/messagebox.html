@@ -1,11 +1,25 @@
 
 
-  <div class="msgbox page" ng-show="error">
-    <button class="close" type="button" ng-click="error='';">&times;</button>
-    <h4 class="title">Error.</h4>
-    <p>{{error}}</p>
+  <div class="msgbox pagebox" ng-class="type" ng-show="type">
+    <button class="close" type="button" ng-click="type=''">&times;</button>
+    <h4 class="title">{{type}}</h4>
+    <p>Lorem ipsum dolor sit amet, meis numquam id ius, rebum movet lobortis in sea. Vel at accusamus disputando. Cu quando aperiri nam, harum latine vel cu. Usu integre euripidis eu, fabellas persequeris pri ex. Alii quaerendum complectitur nec ad. Libris utroque adversarium in cum, harum assentior ei nam.</p>
   </div>
 
 
+  <h1 class="page-title"> 
+    Message boxes
+  </h1>
 
-  <button ng-click="error='Lorem ipsum dolor sit amet, consectetur adipiscing elit. In posuere elementum condimentum.'">Show error</button>
+  <h2 class="sub-title">
+    Show
+  </h2>
+
+
+  <button ng-click="type='message'" class="btn">Show messagebox</button>
+  <button ng-click="type='error'" class="btn">Show error message</button>
+  <button ng-click="type='success'" class="btn">Show success message</button>
+  <button ng-click="type='info'" class="btn">Show info message</button>
+  <button ng-click="type='warning'" class="btn">Show warning message</button>
+  
+   
