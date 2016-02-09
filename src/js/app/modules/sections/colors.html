@@ -7,9 +7,9 @@
     Main colours
   </h2>
 
-  <div class="content">
+  <div class="container" ng-controller="color">
     <ul class="color-list">
-      <li ng-repeat="(index, color) in colors_primary" class="color-item">
+      <li ng-repeat="(index, color) in colors" class="color-item">
         <div class="example" ng-style="{'background-color':'{{color.code}}'}">
           <div class="slide-in">{{color.code}}</div>
         </div>
