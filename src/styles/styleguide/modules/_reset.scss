@@ -29,6 +29,12 @@ audio,canvas,progress,video {
   display: inline-block; 
   vertical-align: baseline;
 }
+p {
+  line-height: normal;
+}
+a { 
+  cursor: pointer; // prevent no pointer when a has no href
+}
 /**
  * Address odd `em`-unit font size rendering in all browsers.
  */
