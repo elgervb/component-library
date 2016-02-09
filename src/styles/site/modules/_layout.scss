@@ -4,17 +4,17 @@ html, body {
   width: 100%;
 }
 .sidebar {
-  
-  .title {
-    
-  }
-  
   background-color: $grey-darker;
   color: $font-color-light;
   min-width: 25%;
   min-height: 100%;
   padding: 2rem 0;
   width: 25%;
+  
+  .title {
+    text-align: center;
+    font-weight: 300;
+  }
 }
 .content {
   padding: 1rem;
