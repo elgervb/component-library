@@ -2,14 +2,14 @@
   a {
     color: $font-color-light;
     display: block;
-    padding: 1rem 1rem 1rem 2rem;
+    font-size: 1.2em;
+    padding: 1.2rem 1.2rem 1.2rem 2.4rem;
     text-decoration: none;
     
     @include transition(background);
     
     &:hover {
       background-color: lighten($grey-darker, 10%);
-      
     }
   }
 }
