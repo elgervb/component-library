@@ -3,6 +3,10 @@ html, body {
   height: 100%;
   width: 100%;
 }
+::selection {
+    background: lighten($orange-regular, 10%);
+    color: $white-regular;
+}
 .sidebar {
   background-color: $grey-darker;
   color: $font-color-light;
