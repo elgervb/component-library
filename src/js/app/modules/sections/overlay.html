@@ -1,9 +1,12 @@
 
+   <h1 class="page-title"> 
+     Overlays
+   </h1>
 
   <button class="btn-red" ng-click="showoverlay=true">Show overlay</button>
   <button class="btn-red" ng-click="showoverlay=true;slideIn=true;">Slide in overlay</button>
   <button class="btn-red" ng-click="showoverlay=true;slideInLeft=true;">Slide in left overlay</button>
-  <button class="btn-red" ng-click="showoverlay=true;slideInRight=true;">Slide in left overlay</button>
+  <button class="btn-red" ng-click="showoverlay=true;slideInRight=true;">Slide in right overlay</button>
   <button class="btn-red" ng-click="showoverlay=true;fadeIn=true;">Fade in overlay</button>
 
   <div class="overlay" ng-show="showoverlay" ng-class="{slideIn: slideIn, slideInLeft: slideInLeft, slideInRight: slideInRight, fadeIn: fadeIn}">
