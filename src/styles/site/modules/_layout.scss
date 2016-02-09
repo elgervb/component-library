@@ -1,0 +1,22 @@
+html, body {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+.sidebar {
+  
+  .title {
+    
+  }
+  
+  background-color: $grey-darker;
+  color: $font-color-light;
+  min-width: 25%;
+  min-height: 100%;
+  padding: 2rem 0;
+  width: 25%;
+}
+.content {
+  padding: 1rem;
+  width: 75%;
+}

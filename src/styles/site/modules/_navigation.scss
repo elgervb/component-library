@@ -1,0 +1,15 @@
+.main-nav {
+  a {
+    color: $font-color-light;
+    display: block;
+    padding: 1rem 1rem 1rem 2rem;
+    text-decoration: none;
+    
+    @include transition(background);
+    
+    &:hover {
+      background-color: lighten($grey-darker, 10%);
+      
+    }
+  }
+}
