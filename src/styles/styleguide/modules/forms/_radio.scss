@@ -52,10 +52,10 @@
   }
   [type="radio"]:checked:focus + label:before,
   [type="radio"]:not(:checked):focus + label:before {
-    qorder: 1px dotted blue;
+    border: 1px dotted blue;
   }
 
   label:hover:before {
-    border: 1px solid #4778d9!important;
+    border: 1px solid #4778d9 !important;
   }
 }

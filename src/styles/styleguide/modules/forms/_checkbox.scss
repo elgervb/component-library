@@ -52,7 +52,7 @@
   }
   [type="checkbox"]:checked:focus + label:before,
   [type="checkbox"]:not(:checked):focus + label:before {
-    qorder: 1px dotted blue;
+    border: 1px dotted blue;
   }
 
   label:hover:before {
