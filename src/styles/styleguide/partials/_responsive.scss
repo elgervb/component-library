@@ -1,10 +1,10 @@
 /* BREAKPOINTS */
-$bp-phone : 320px;
-$bp-phone-landscape : 480px;
-$bp-small-tablet : 768px;
-$bp-small-tablet-landscape : 1024px;
-$bp-tablet : 992px;
-$bp-desktop : 1200px;
+$bp-phone : 320px !default;
+$bp-phone-landscape : 480px !default;
+$bp-small-tablet : 768px !default;
+$bp-small-tablet-landscape : 1024px !default;
+$bp-tablet : 992px !default;
+$bp-desktop : 1200px !default;
 
 /**
  * Exclusive styles for phone, tablet or desktop

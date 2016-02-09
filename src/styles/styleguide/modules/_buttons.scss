@@ -43,64 +43,64 @@
 
 .btn-red {
   color: $font-color-light;
-  background: $btn-red;
-  border-color: darken($btn-red, $hover-darken);
+  background: $red-regular;
+  border-color: darken($red-regular, $hover-darken);
   &:hover {
-    background: darken($btn-red, $hover-darken);
+    background: darken($red-regular, $hover-darken);
   }
 }
 
 .btn-blue {
   color: $font-color-light;
-  background: $btn-blue;
-  border-color: darken($btn-blue, $hover-darken);
+  background: $blue-regular;
+  border-color: darken($blue-regular, $hover-darken);
   &:hover {
-    background: darken($btn-blue, $hover-darken);
+    background: darken($blue-regular, $hover-darken);
   }
 }
 
 .btn-green {
   color: $font-color-light;
-  background: $btn-green;
-  border-color: darken($btn-green, $hover-darken);
+  background: $green-regular;
+  border-color: darken($green-regular, $hover-darken);
   &:hover {
-    background: darken($btn-green, $hover-darken);
+    background: darken($green-regular, $hover-darken);
   }
 }
 
 .btn-turquoise {
   color: $font-color-light;
-  background: $btn-turquoise;
-  border-color: darken($btn-turquoise, $hover-darken);
+  background: $turquoise-regular;
+  border-color: darken($turquoise-regular, $hover-darken);
   &:hover {
-    background: darken($btn-turquoise, $hover-darken);
+    background: darken($turquoise-regular, $hover-darken);
   }
 }
 
 .btn-orange {
   color: $font-color-light;
-  background:$btn-orange;
-  border-color: darken($btn-orange, $hover-darken);
+  background: $orange-regular;
+  border-color: darken($orange-regular, $hover-darken);
   &:hover {
-    background: darken($btn-orange, $hover-darken);
+    background: darken($orange-regular, $hover-darken);
   }
 }
 
 .btn-purple {
   color: $font-color-light;
-  background: $btn-purple;
-  border-color: darken($btn-purple, $hover-darken);
+  background: $purple-regular;
+  border-color: darken($purple-regular, $hover-darken);
   &:hover {
-    background: darken($btn-purple, $hover-darken);
+    background: darken($purple-regular, $hover-darken);
   }
 }
 
 .btn-yellow {
   color: $font-color-light;
-  background: $btn-yellow;
-  border-color: darken($btn-yellow, $hover-darken);
+  background: $yellow-regular;
+  border-color: darken($yellow-regular, $hover-darken);
   &:hover {
-    background: darken($btn-yellow, $hover-darken);
+    background: darken($yellow-regular, $hover-darken);
   }
 }
 
@@ -159,7 +159,7 @@ a.btn-circle{
   padding: 0;
 }
 .badge{
-  background-color: $btn-red;
+  background-color: $red-regular;
   border: 2px solid $light-regular;
   border-radius: 1em;
   box-shadow:0 2px 2px rgba(0,0,0,0.4);
