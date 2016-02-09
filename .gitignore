@@ -1,6 +1,6 @@
-node_modules/*
-dist/*
-docs/*
-TODO.md
-reports/*
+node_modules
+dist
+docs
+reports
 npm-debug.log
+src/js/vendor/

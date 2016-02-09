@@ -1,44 +1,28 @@
+/* global angular */
+(() => {
+  
+  angular.module('patternlib', ['ui.router', 'templates'])
 
-var app = angular.module('default', ['ngRoute'])
+  .config(($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) => {
 
-.config(function($routeProvider, $locationProvider) {
-
-  $routeProvider
-    .when('/buttons', {
-      templateUrl: '/js/app/modules/sections/buttons.html'
+    $urlRouterProvider.otherwise('/');
+    
+    $stateProvider
+    .state('main', {
+      url: '/',
+      templateUrl: 'modules/main.html'
     })
-    .when('/colors', {
-      controller: 'ColorController',
-      templateUrl: '/js/app/modules/sections/colors.html'
-    })
-    .when('/forms', {
-      templateUrl: '/js/app/modules/sections/forms.html'
-    })
-    .when('/lists', {
-      templateUrl: '/js/app/modules/sections/lists.html'
-    })
-    .when('/tables', {
-      templateUrl: '/js/app/modules/sections/tables.html'
-    })
-    .when('/typography', {
-      templateUrl: '/js/app/modules/sections/typography.html'
-    })
-    .when('/columns', {
-      templateUrl: '/js/app/modules/sections/columns.html'
-    })
-    .when('/popover', {
-      templateUrl: '/js/app/modules/sections/popover.html'
-    })
-    .when('/overlay', {
-      templateUrl: '/js/app/modules/sections/overlay.html'
-    })
-    .when('/messagebox', {
-      templateUrl: '/js/app/modules/sections/messagebox.html'
-    })
-    .otherwise({
-      templateUrl: '/js/app/modules/main.html'
+    .state('main.section', {
+      url: '/:id',
+      templateUrl: (args) => {
+        return `modules/sections/${args.id}.html`
+      }
     });
 
-  $locationProvider.html5Mode('true');
+    $locationProvider.html5Mode('true');
+    
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 
-}); // end config
+  });
+})();
