@@ -1,15 +1,14 @@
 {
-  "name": "skeletonSpa",
-  "description": "Skeleton for a Single Page Application using Gulp and AngularJS",
+  "name": "pattern-library",
+  "description": "Pattern library",
   "main": [
-    "src/js/app/app.js",
-    "src/styles/main.scss"
+    "src/js/app/app.js"
   ],
   "dependencies": {
-    "angular": "~1.4.7",
-    "angular-animate": "~1.4.7",
-    "angular-mocks": "~1.4.7",
-    "angular-resource": "~1.4.7",
+    "angular": "~1.4.9",
+    "angular-animate": "~1.4.9",
+    "angular-mocks": "~1.4.9",
+    "angular-resource": "~1.4.9",
     "angular-ui-router": "~0.2.15"
   },
   "devDependencies": {},
@@ -18,9 +17,9 @@
     "node"
   ],
   "keywords": [
-    "motion",
-    "physics",
-    "particles"
+    "components",
+    "css",
+    "component library"
   ],
   "authors": [
     "Elger van Boxtel <elgervb@gmail.com>"
@@ -28,7 +27,7 @@
   "homepage": "http://elgervanboxtel.nl",
   "repository": {
     "type": "git",
-    "url": "https://github.com/elgervb/skeletonSPA/"
+    "url": "https://github.com/elgervb/pattern-library/"
   },
   "license": "ISC",
   "ignore": [
