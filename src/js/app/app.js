@@ -5,7 +5,8 @@
 
   .config(($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) => {
 
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/buttons');
+    $urlRouterProvider.when('/', '/buttons'); // defaults to buttons
     
     $stateProvider
     .state('main', {
