@@ -32,9 +32,6 @@ audio,canvas,progress,video {
 p {
   line-height: normal;
 }
-a { 
-  cursor: pointer; // prevent no pointer when a has no href
-}
 /**
  * Address odd `em`-unit font size rendering in all browsers.
  */
@@ -68,7 +65,13 @@ blockquote:before,blockquote:after,q:before,q:after{
 	content:none;
 }
 a{
-	margin:0;padding:0;font-size:100%;vertical-align:baseline;background:transparent;
+  background:transparent;
+  border-bottom: 1px solid currentColor;
+  cursor: pointer; // prevent no pointer when a has no href
+	margin:0;
+  padding:0;
+  text-decoration: none;
+  vertical-align:baseline;
 }
 /**
  * Improve readability when focused and also mouse hovered in all browsers.
