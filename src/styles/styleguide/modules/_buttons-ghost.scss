@@ -1,0 +1,67 @@
+
+.btn-ghost {
+  background-color: transparent;
+  border: 1px solid currentColor;
+  border-radius: 5px;
+  color: #999999;
+  padding: 1rem 1.4167rem;
+  
+  &:hover, &:focus {
+    background-color: #999999;
+    color: #ffffff;
+  }
+  
+  &.btn-red {
+    color: #e74c3c;
+    &:hover, &:focus {
+      background-color: #e74c3c;
+      color: #ffffff;
+    }
+  }
+  &.btn-blue {
+    color: #3498db;
+    &:hover, &:focus {
+      background-color: #3498db;
+      color: #ffffff;
+    }
+  }
+  &.btn-green {
+    color: #2ecc71;
+    &:hover, &:focus {
+      background-color: #2ecc71;
+      color: #ffffff;
+    }
+  }
+  &.btn-turquoise {
+    color: #1abc9c;
+    &:hover, &:focus {
+      background-color: #1abc9c;
+      color: #ffffff;
+    }
+  }
+  &.btn-orange {
+    color: #e67e22;
+    &:hover, &:focus {
+      background-color: #e67e22;
+      color: #ffffff;
+    }
+  }
+  &.btn-yellow {
+    color: #E8C53A;
+    &:hover, &:focus {
+      background-color: #E8C53A;
+      color: #ffffff;
+    }
+  }
+  &.btn-purple {
+    color: #9b59b6;
+    &:hover, &:focus {
+      background-color: #9b59b6;
+      color: #ffffff;
+    }
+  }
+  
+  &.btn-tiny, &.btn-small {
+    padding: .5rem .8rem;
+  }
+}
