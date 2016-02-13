@@ -11,8 +11,6 @@ angular.module('patternlib').controller('color', ($scope) => {
     {code: '#f2f2f2', name: 'White dark', sass: 'white-dark'},
     {code: '#ffffff', name: 'White regular', sass: 'white-regular'},
     
-    
-    
     {code: '#e74c3c', name: 'Red regular', sass: 'red-regular'},
     {code: '#3498db', name: 'Blue regular', sass: 'blue-regular'},
     {code: '#2ecc71', name: 'Green regular', sass: 'green-regular'},
