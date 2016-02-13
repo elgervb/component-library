@@ -65,13 +65,22 @@ blockquote:before,blockquote:after,q:before,q:after{
 	content:none;
 }
 a{
-  background:transparent;
-  border-bottom: 1px solid currentColor;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  color:#3498db;
   cursor: pointer; // prevent no pointer when a has no href
 	margin:0;
   padding:0;
   text-decoration: none;
   vertical-align:baseline;
+  
+  &:hover {
+    border-bottom: 1px solid currentColor;
+    color: darken(#3498db, 10%);
+  }
+  &:visited {
+    color:#3498db;
+  }
 }
 /**
  * Improve readability when focused and also mouse hovered in all browsers.
