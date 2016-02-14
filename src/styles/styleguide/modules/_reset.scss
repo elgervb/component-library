@@ -29,7 +29,7 @@ audio,canvas,progress,video {
   display: inline-block; 
   vertical-align: baseline;
 }
-p {
+p, ul, ol {
   line-height: normal;
 }
 /**
@@ -53,9 +53,6 @@ audio:not([controls]) {
  */
 [hidden],template {
   display: none;
-}
-ul{
-	list-style:none;
 }
 blockquote,q{
 	quotes:none;
