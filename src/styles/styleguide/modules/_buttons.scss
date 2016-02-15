@@ -34,6 +34,12 @@
     opacity: .5;
   }
 }
+a.btn, a[class*='btn-'] {
+  color: $black-regular;
+  &:hover {
+    border: none;
+  }
+}
 
 .btn[disabled], .btn.disabled, [class*='btn-'][disabled], .disabled[class*='btn-'] {
   cursor: default;
@@ -41,7 +47,7 @@
   pointer-events: none;
 }
 
-.btn-red {
+.btn-red, a.btn-red {
   color: $font-color-light;
   background: $red-regular;
   border-color: darken($red-regular, $hover-darken);
@@ -50,7 +56,7 @@
   }
 }
 
-.btn-blue {
+.btn-blue, a.btn-blue {
   color: $font-color-light;
   background: $blue-regular;
   border-color: darken($blue-regular, $hover-darken);
@@ -59,7 +65,7 @@
   }
 }
 
-.btn-green {
+.btn-green, a.btn-green {
   color: $font-color-light;
   background: $green-regular;
   border-color: darken($green-regular, $hover-darken);
@@ -68,7 +74,7 @@
   }
 }
 
-.btn-turquoise {
+.btn-turquoise, a.btn-turquoise {
   color: $font-color-light;
   background: $turquoise-regular;
   border-color: darken($turquoise-regular, $hover-darken);
@@ -77,7 +83,7 @@
   }
 }
 
-.btn-orange {
+.btn-orange, a.btn-orange {
   color: $font-color-light;
   background: $orange-regular;
   border-color: darken($orange-regular, $hover-darken);
@@ -86,7 +92,7 @@
   }
 }
 
-.btn-purple {
+.btn-purple, a.btn-purple {
   color: $font-color-light;
   background: $purple-regular;
   border-color: darken($purple-regular, $hover-darken);
@@ -95,7 +101,7 @@
   }
 }
 
-.btn-yellow {
+.btn-yellow, a.btn-yellow {
   color: $font-color-light;
   background: $yellow-regular;
   border-color: darken($yellow-regular, $hover-darken);
