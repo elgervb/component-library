@@ -31,15 +31,21 @@
   },
   "license": "ISC",
   "ignore": [
-    "node_modules",
-    "bower_components",
-    "js",
-    "test",
-    "tests",
+    ".babelrc",
+    ".bowerrc",
+    ".eslintrc",
+    ".gitignore",
     ".htaccess",
+    ".htmlhintrc",
+    ".vscode",
+    "bower_components",
     "gulpfile.babel.js",
+    "js",
     "jsconfig.json",
     "karma.conf.js",
-    "protractor.config.js"
+    "node_modules",
+    "protractor.config.js",
+    "test",
+    "tests"
   ]
 }
