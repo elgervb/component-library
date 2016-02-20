@@ -1,6 +1,6 @@
 {
-  "name": "pattern-library",
-  "description": "Pattern library",
+  "name": "component-library",
+  "description": "Component library",
   "main": [
     "src/js/app/app.js"
   ],
@@ -33,7 +33,13 @@
   "ignore": [
     "node_modules",
     "bower_components",
+    "js",
     "test",
-    "tests"
+    "tests",
+    ".htaccess",
+    "gulpfile.babel.js",
+    "jsconfig.json",
+    "karma.conf.js",
+    "protractor.config.js"
   ]
 }
