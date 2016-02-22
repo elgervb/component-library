@@ -7,6 +7,51 @@ html, body {
     background: lighten($orange-regular, 10%);
     color: $white-regular;
 }
+.hamburger {
+  color: $white-regular;
+  cursor: pointer;
+  left: 26rem;
+  padding: 1rem;
+  position: fixed;
+  top: 1.5rem;
+  z-index: 9;
+  
+   &:before {
+    content:'\00ab';
+    font-size: 2em;
+  }
+}
+.hamburger-check {
+  display: none;
+  
+  ~ .sidebar {
+    @include transition(all);
+  }
+  
+  &:checked ~ .hamburger {
+    color: $black-regular;
+    left: 1rem;
+    top: 1rem;
+    
+    &:before {
+      content: '\2630'
+    }
+  }
+  
+  &:checked ~ .sidebar {
+    transform: translateX(-100%);
+    
+    &.right {
+      transform: translateX(100%);
+    }
+    &.up {
+      transform: translateY(-100%);
+    }
+    &.down {
+      transform: translateY(100%);
+    }
+  }
+}
 .sidebar {
   background-color: $grey-darker;
   color: $font-color-light;
