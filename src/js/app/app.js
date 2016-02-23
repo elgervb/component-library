@@ -18,6 +18,12 @@
       templateUrl: (args) => {
         return `modules/sections/${args.id}.html`;
       }
+    })
+    .state('examples', {
+      url: '/examples/:id',
+      templateUrl: (args) => {
+        return `modules/examples/${args.id}.html`;
+      }
     });
 
     $locationProvider.html5Mode('true');
