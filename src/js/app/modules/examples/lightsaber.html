@@ -1,0 +1,42 @@
+<link href="css/examples/lightsaber.css" rel="stylesheet">
+
+<nav class="previous">
+  <a ui-sref="examples({id:'aurora'})"></a>
+</nav>
+
+<div class="field">
+  <select id="color">
+      <option value="#AD1283">purple</option>
+      <option value="#F2EB24">yellow</option>
+      <option value="#ED2623">red</option>
+      <option value="#23EA23">green</option>
+  </select>
+</div>
+
+<div class="lightsaber purple">
+  <div class="handle">
+    <div class="top"></div>
+    <div class="button"><a class="show-hide"></a></div>
+    <div class="middle"></div>
+    <div class="bottom"></div>
+  </div>
+  <div class="slidingDiv">
+    <div class="light">
+      <div class="lightmain"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelector('.show-hide').addEventListener('click', function() {
+    document.querySelector('.slidingDiv').classList.toggle('hide');
+    console.log('asdf');
+  });
+    
+  $('#color').change(function(){
+    var color = $("#color option:selected").val();
+    console.dir(color);
+    $('.lightmain').css('background', 'linear-gradient(to right, '+color+' 0%,#fff 54%,'+color+' 100%)')
+      .css('box-shadow', '0 1px 24px ' + color);
+  });
+</script>
