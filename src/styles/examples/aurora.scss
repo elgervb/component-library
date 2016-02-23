@@ -1,0 +1,38 @@
+html, body, .aurora{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+.aurora {
+  animation: aurora 40s ease infinite;
+  background: #000 linear-gradient(95deg,rgba(113,3,180,0.8),rgba(83,42,230,0.8),rgba(38,149,220,0.8),rgba(65,204,180,0.8),rgba(255,207,123,0.8),rgba(254,129,0,0.8),rgba(197,52,81,0.8));
+  background-size: 400% 100%;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  z-index: 1;
+}
+.aurora-overlay{
+  animation: aurora 10s ease infinite;
+  background: linear-gradient(85deg,rgba(113,3,180,0.4),rgba(83,42,230,0.4),rgba(38,149,220,0.4),rgba(65,204,180,0.4),rgba(255,207,123,0.4),rgba(254,129,0,0.4),rgba(197,52,81,0.4));
+  bottom: 0;
+  background-size: 300% 100%;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}
+
+@-webkit-keyframes aurora{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+@keyframes aurora{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
