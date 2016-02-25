@@ -30,5 +30,22 @@
     
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+  })
+  
+  .directive('script', ($parse, $rootScope) => {
+    return {
+      restrict: 'E',
+      terminal: true,
+      link: (scope, element, attr) => {
+        if (attr.ngSrc) {
+          let script = document.createElement('script');
+          script.setAttribute('src', attr.ngSrc);
+          script.setAttribute('defer', 'defere');
+          script.setAttribute('async', 'asunc');
+          
+          document.head.appendChild(script);
+        }
+      }
+    };
   });
 })();

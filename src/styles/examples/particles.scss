@@ -1,0 +1,11 @@
+@import "../styleguide/partials/all";
+
+.particles {
+  width: 50%;
+  margin: 0 auto;
+  .controls {
+    position: fixed;
+    z-index: 1001;
+    
+  }
+}
