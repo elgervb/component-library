@@ -99,7 +99,7 @@ gulp.task('clear-cache', () => {
 /**
  * Copies all to dist/
  */
-gulp.task('copy', ['copy-fonts', 'copy-template', 'copy-index']);
+gulp.task('copy', ['copy-fonts', 'copy-template', 'copy-index', 'copy-js']);
 
 
 /**
@@ -108,6 +108,11 @@ gulp.task('copy', ['copy-fonts', 'copy-template', 'copy-index']);
 gulp.task('copy-fonts', () => {
   return gulp.src(`${settings.src}fonts/**`)
   .pipe(gulp.dest(`${settings.dist}fonts`));
+});
+
+gulp.task('copy-js', () => {
+  return gulp.src(`${settings.src}js/examples/**/*.js`)
+    .pipe(gulp.dest(`${settings.dist}js/examples`));
 });
 
 /**
@@ -452,6 +457,9 @@ gulp.task('watch', () => {
 
   // watch html files
   gulp.watch(`${settings.src}**/*.html`, ['copy-template']);
+  
+   // watch index.html
+  gulp.watch(`${settings.src}js/examples/**/*.js`, ['copy-js']);
 
   // watch fonts
   gulp.watch(`${settings.src}fonts/**`, ['copy-fonts']);
