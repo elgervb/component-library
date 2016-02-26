@@ -10,46 +10,17 @@ html, body {
 .hamburger {
   color: $white-regular;
   cursor: pointer;
+  font-size: 2em;
   left: 26rem;
   padding: 1rem;
-  position: fixed;
+  position: absolute;
   top: 1.5rem;
   z-index: 9;
   
+  @include transition(all);
+  
    &:before {
     content:'\00ab';
-    font-size: 2em;
-  }
-}
-.hamburger-check {
-  display: none;
-  
-  ~ .sidebar {
-    @include transition(all);
-  }
-  
-  &:checked ~ .hamburger {
-    color: $black-regular;
-    left: 1rem;
-    top: 1rem;
-    
-    &:before {
-      content: '\2630'
-    }
-  }
-  
-  &:checked ~ .sidebar {
-    transform: translateX(-100%);
-    
-    &.right {
-      transform: translateX(100%);
-    }
-    &.up {
-      transform: translateY(-100%);
-    }
-    &.down {
-      transform: translateY(100%);
-    }
   }
 }
 .sidebar {
@@ -61,11 +32,38 @@ html, body {
   position: fixed;
   width: 25%;
   
+  @include transition(all);
+  
   .title {
     text-align: center;
     font-weight: 300;
     
     @include wrap-ellipsis;
+  }
+  
+  &.collapsed {
+    transform: translateX(-100%);
+    
+    &.right {
+      transform: translateX(100%);
+    }
+    &.up {
+      transform: translateY(-100%);
+    }
+    &.down {
+      transform: translateY(100%);
+    }
+    
+    .hamburger {
+      color: $black-regular;
+      right: -4rem;
+      left: auto;
+      top: 1rem;
+      
+      &:before {
+        content: '\2630'
+      }
+    }
   }
 }
 .content {
