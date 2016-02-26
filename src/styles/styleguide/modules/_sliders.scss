@@ -1,0 +1,28 @@
+.slider-container {
+  position: relative;
+}
+.slider {
+  
+  @include transition(all);
+  
+  &.collapsed {
+    transform: translateX(-100%);
+
+    &.slide-left {
+      transform: translateX(-100%);
+    }
+    &.slide-right {
+      transform: translateX(100%);
+    }
+    &.slide-up {
+      transform: translateY(-100%);
+    }
+    &.slide-down {
+      transform: translateY(100%);
+    }
+    &.slide-fade {
+      opacity: 0;
+    }
+  }
+  
+}

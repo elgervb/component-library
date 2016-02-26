@@ -32,8 +32,6 @@ html, body {
   position: fixed;
   width: 25%;
   
-  @include transition(all);
-  
   .title {
     text-align: center;
     font-weight: 300;
@@ -42,18 +40,7 @@ html, body {
   }
   
   &.collapsed {
-    transform: translateX(-100%);
-    
-    &.right {
-      transform: translateX(100%);
-    }
-    &.up {
-      transform: translateY(-100%);
-    }
-    &.down {
-      transform: translateY(100%);
-    }
-    
+      
     .hamburger {
       color: $black-regular;
       right: -4rem;
